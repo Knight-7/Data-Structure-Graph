@@ -102,9 +102,28 @@ void DFS_AM_f(AMGraph G, int v)
 	}
 }
 //邻接矩阵的BFS
-void BFS_AM(AMGraph G)
+void BFS_AM(AMGraph G,int v)
 {
-
+	queue<int>q;
+	bool vis[MVNum];
+	memset(vis, false, sizeof(vis));
+	cout << v << " ";
+	vis[v] = true;
+	q.push(v);
+	int k = 0;
+	while (!q.empty()) {
+		int now = q.front();
+		q.pop();
+		for(int i=0;i<G.vexnum;i++)
+			if (G.arcs[now][i] && !vis[i]) {
+				cout << i << " ";
+				vis[i] = true;
+				q.push(i);
+				k++;                          //加一个计算已经输出的节点的个数，当个数等于节点总数的时候，直接就结束了
+				if (k == G.vexnum)
+					return;
+			}
+	}
 }
 /************************邻接表**********************/
 typedef struct ArcNode              //边节点
@@ -152,8 +171,8 @@ void CreateUDG(ALGraph &G)
 
 		Arcp p2 = new ArcNode;
 		p2->adjvex = x;                      //确定该条变所指向的点
-		p2->nextarc = G.vertices[i].firstarc;//采用前插法将变插入到v2的后面
-		G.vertices[i].firstarc = p2;
+		p2->nextarc = G.vertices[y].firstarc;//采用前插法将变插入到v2的后面
+		G.vertices[y].firstarc = p2;
 	}
 }
 //邻接表的深搜（递归）
@@ -194,6 +213,34 @@ void DFS_ALG_f(ALGraph G, int v)
 				w = p->adjvex;
 				p = G.vertices[w].firstarc;
 			}
+		}
+	}
+}
+//邻接列表的BFS
+void BFS_ALG(ALGraph G, int v)
+{
+	queue<int>q;
+	bool vis[MVNum];
+	memset(vis, false, sizeof(vis));
+	q.push(v);
+	cout << v << " ";
+	vis[v] = true;
+	int k = 0;
+	while (!q.empty()) {
+		int now = q.front();
+		q.pop();
+		ArcNode *p = G.vertices[now].firstarc;
+		while (p) {
+			int w = p->adjvex;
+			if (!vis[w]) {
+				cout << w << " ";
+				vis[w] = true;
+				q.push(w);
+				k++;                         //加一个计算已经输出的节点的个数，使得所有的节点都输出以后直接结束
+				if (k == G.vexnum)
+					return;
+			}
+			p = p->nextarc;
 		}
 	}
 }
