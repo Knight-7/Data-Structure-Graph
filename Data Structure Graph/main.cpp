@@ -4,7 +4,7 @@ using namespace std;
 int main()
 {
 	//创建一个邻接矩阵
-	/*AMGraph g;
+	AMGraph g;
 	CreateUDN_W(g);
 	for (int i = 0; i < g.vexnum; i++) {
 		for (int j = 0; j < g.vexnum; j++)
@@ -17,12 +17,12 @@ int main()
 	DFS_AM_f(g, 4);
 	cout << endl;
 	BFS_AM(g, 1);
-	cout << endl;*/
+	cout << endl;
 	//创建一个邻接表
 	memset(flag1, false, sizeof(flag1));
 	memset(flag2, false, sizeof(flag2));
 	ALGraph gg;
-	CreateUDG(gg);
+	CreateUDG_W(gg);
 	for (int i = 0; i < gg.vexnum; i++) {
 		ArcNode *p = gg.vertices[i].firstarc;
 		cout << gg.vertices[i].data << " ";
