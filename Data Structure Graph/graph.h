@@ -151,7 +151,7 @@ int LocateVex(ALGraph G, int v)
 			return i;
 	return -1;
 }
-void CreateUDG(ALGraph &G)
+void CreateUDG_W(ALGraph &G)
 {
 	std::cin >> G.vexnum >> G.arcnum;        //输入点的数量和边的数量
 	for (int i = 0; i < G.vexnum; i++) {
@@ -173,6 +173,26 @@ void CreateUDG(ALGraph &G)
 		p2->adjvex = x;                      //确定该条变所指向的点
 		p2->nextarc = G.vertices[y].firstarc;//采用前插法将变插入到v2的后面
 		G.vertices[y].firstarc = p2;
+	}
+}
+//采用邻接表建立有向图
+void CreateUDG_Y(ALGraph &G)
+{
+	std::cin >> G.vexnum >> G.arcnum;        //输入点的数量和边的数量
+	for (int i = 0; i < G.vexnum; i++) {
+		std::cin >> G.vertices[i].data;      //初始化顶点值
+		G.vertices[i].firstarc = NULL;       //和初始化表头节点的指针域为NULL
+	}
+	VerTexType v1, v2;
+	for (int i = 0; i < G.arcnum; i++) {
+		std::cin >> v1 >> v2;                //输入一条边的两个顶点的值
+		int x = LocateVex(G, v1);            //确定V1和V2在G中的位置
+		int y = LocateVex(G, v2);
+
+		Arcp p1 = new ArcNode;
+		p1->adjvex = y;                      //确定该条边所指向的点
+		p1->nextarc = G.vertices[x].firstarc;//采用前插法将边插入到v1的后面
+		G.vertices[x].firstarc = p1;
 	}
 }
 //邻接表的深搜（递归）
