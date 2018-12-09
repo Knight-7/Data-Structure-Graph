@@ -125,6 +125,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="algorithm.h" />
     <ClInclude Include="graph.h" />
     <ClInclude Include="LinkList.h" />
   </ItemGroup>
